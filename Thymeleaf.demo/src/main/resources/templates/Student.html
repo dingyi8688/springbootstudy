@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<style>
+.even {
+	background-color: hotpink;
+}
+
+.odd {
+	background-color: cornflowerblue;
+}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Thymeleaf快速入门-Hello Thymeleaf</title>
+	    <script th:inline="javascript">
+        var single = [[${student}]];      console.log(single.name + "/" + single.id);
+        
+    </script>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>index</th>
+				<th>学生id</th>
+				<th>学生姓名</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="s:${students}">
+				<td th:text="${s.id}"></td>
+				<td th:text="${s.name}"></td>
+			</tr>
+			<tr th:class="${status.even}?'even':'odd'"
+				th:each="s,status:${students}">
+				<td th:text="${status.index}"></td>
+				<td th:text="${s.id}"></td>
+				<td th:text="${s.name}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:if="${#lists.isEmpty(students)}">studnets集合为空！</div>
+	<!-- 当students集合不为空时才会显示下面的元素 -->
+	<div th:if="${not #lists.isEmpty(students)}">
+		<table>
+			<thead>
+				<tr>
+					<th>index</th>
+					<th>学生id</th>
+					<th>学生姓名</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:class="${status.even}?'even':'odd'"
+					th:each="s,status:${students}">
+					<td th:text="${status.index}"></td>
+					<td th:text="${s.id}"></td>
+					<td th:text="${s.name}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<div th:include="footer::footer1"></div>
+<div th:replace="footer::footer2(2015,2018)"></div>
+	
+</body>
+</html>
